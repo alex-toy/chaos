@@ -18,7 +18,7 @@ build-docker-image:
   - docker push $IMAGE_NAME
 
 unit-test:
-  image: python:3.8.1
+  image: python:3.8.5
   stage: test
   script: 
     - pip install -r requirements.txt
