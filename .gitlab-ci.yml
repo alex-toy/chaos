@@ -36,5 +36,7 @@ deploy to develop:
     - gcloud config set compute/zone europe-west1-b 
     - gcloud container clusters get-credentials chaos-cluster 
     - kubectl apply -f deployment/example_pod_develop.yml
+    - kubectl apply -f deployment/deployment-4.yml
+    #- kubectl apply -f deployment/load-balancer-4.yml
   only:
     - develop
