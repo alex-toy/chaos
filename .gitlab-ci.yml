@@ -6,6 +6,7 @@ services:
 stages:
   - build
   - test
+  - deploy
 
 build-docker-image:
   stage: build
@@ -24,3 +25,22 @@ unit-test:
     - pip install -r requirements.txt
     - pip install -e .
     - pytest chaos/test/unit
+  only:
+    - develop
+    - staging
+
+deploy to develop:
+  stage: deploy
+  image: google/cloud-sdk:257.0.0
+  script:
+    - echo "$GITLAB_IAM_PRIVATE_KEY" > key.json
+    - gcloud auth activate-service-account --key-file key.json
+    - gcloud config set project yotta-square-ml3 
+    - gcloud config set compute/zone europe-west1-b 
+    - gcloud container clusters get-credentials chaos-cluster 
+    - kubectl apply -f deployment/example_pod_develop.yml
+    - kubectl apply -f deployment/deployment-4.yml
+    - kubectl apply -f deployment/load-balancer-4.yml
+  only:
+    - staging
+    - master
