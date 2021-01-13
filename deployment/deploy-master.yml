@@ -4,7 +4,7 @@ kind: Deployment
 
 
 metadata:
-  name: start-api-4-deployment
+  name: deployment-master-4
   labels:
     app: start-api-4
 
