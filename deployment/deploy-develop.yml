@@ -4,7 +4,7 @@ kind: Deployment
 
 
 metadata:
-  name: start-api-4-deployment
+  name: deployment-develop-4
   labels:
     app: start-api-4
 
@@ -29,11 +29,3 @@ spec:
         image: eu.gcr.io/yotta-square-ml3/chaos-4:develop
         ports:
         - containerPort: 5000
-        volumeMounts:
-        - name: foo
-          mountPath: "/etc/foo"
-          readOnly: true
-      volumes:
-      - name: foo
-        secret:
-          secretName: chaos-secrets-4
