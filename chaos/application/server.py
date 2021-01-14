@@ -40,11 +40,32 @@ def model_prediction(data_file_path, model_file_path, save_file) :
     #preds.to_csv(os.path.join(cf.OUTPUTS_DIR, save_file))
 
 
+@app.route("/pred", methods=["POST"])
+def pred():
+    try:
+        QUALITE_LEAD = request.get_json()["QUALITE_LEAD"]
+        TAGS = request.get_json()["TAGS"]
+        DERNIERE_ACTIVITE = request.get_json()["DERNIERE_ACTIVITE"]
+        DUREE_SUR_SITEWEB = request.get_json()["DUREE_SUR_SITEWEB"]
+        NB_VISITES = request.get_json()["NB_VISITES"]
+    except (ValueError, TypeError, KeyError):
+        DEFAULT_RESPONSE = 0
+        answer = DEFAULT_RESPONSE
+
+    response = {
+            "QUALITE_LEAD": QUALITE_LEAD,
+            "TAGS": TAGS,
+            "DERNIERE_ACTIVITE": DERNIERE_ACTIVITE,
+            "DUREE_SUR_SITEWEB": DUREE_SUR_SITEWEB,
+            "NB_VISITES": NB_VISITES,
+    }
+    
+    return response
 
 
 
-@app.route("/prospect", methods=["POST"])
-def prospect():
+@app.route("/training", methods=["POST"])
+def training():
 
     model_file_path = os.path.join(os.path.os.getcwd(), 'chaos/domain/model.pkl')
     
