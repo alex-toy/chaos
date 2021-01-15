@@ -7,6 +7,7 @@ from chaos.infrastructure.config.config import config
 import  pickle
 import os
 import pandas as pd
+import csv
 
 
 app = Flask(__name__)
@@ -52,15 +53,34 @@ def pred():
         DEFAULT_RESPONSE = 0
         answer = DEFAULT_RESPONSE
 
-    response = {
+    response = [{
             "QUALITE_LEAD": QUALITE_LEAD,
             "TAGS": TAGS,
             "DERNIERE_ACTIVITE": DERNIERE_ACTIVITE,
             "DUREE_SUR_SITEWEB": DUREE_SUR_SITEWEB,
             "NB_VISITES": NB_VISITES,
-    }
+    }]
+
+    field_names = ['QUALITE_LEAD', 'TAGS', 'DERNIERE_ACTIVITE', 'DUREE_SUR_SITEWEB', 'NB_VISITES'] 
+  
+    with open('data.csv', 'w') as csvfile: 
+        writer = csv.DictWriter(csvfile, fieldnames = field_names) 
+        writer.writeheader() 
+        writer.writerows(response) 
+
+    model_file_path = os.path.join(os.path.os.getcwd(), 'chaos/domain/model_lead.pkl')
+
+    #with open(model_file_path, 'rb') as pickle_file:
+        #model = pickle.load(pickle_file)
+
+    #cd = CleanDataTransformer(path=data_file_path)
+    #data = cd.load_cleaned_data()
+
+    #response = model.predict_proba(data)[:,1]
+
+    response[0]['prediction'] = 1
     
-    return response
+    return response[0]
 
 
 
