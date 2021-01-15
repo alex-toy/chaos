@@ -1,39 +1,13 @@
-apiVersion: apps/v1
-kind: Deployment
-
-
-
+apiVersion: v1
+kind: Pod
 metadata:
-  name: deployment-staging-4
+  name: example-pod-4-develop
   labels:
-    app: start-api-4
-
-
-
+    environment: develop
 spec:
-  replicas: 1
-  
-  selector:
-    matchLabels:
-      app: start-api-4
-  
-  template:
-    
-    metadata:
-      labels:
-        app: start-api-4
-    
-    spec:
-      containers:
-      - name: start-api-4
-        image: eu.gcr.io/yotta-square-ml3/chaos-4:develop
-        ports:
-        - containerPort: 5000
-        volumeMounts:
-        - name: foo
-          mountPath: "/etc/foo"
-          readOnly: true
-      volumes:
-      - name: foo
-        secret:
-          secretName: chaos-secrets-4
+  containers:
+    - name: start-api
+      image: eu.gcr.io/yotta-square-ml3/chaos-4:develop
+      imagePullPolicy: Always
+      command: [ "/bin/bash", "-c" ]
+      args: [ "echo hello world k8s group 4! ; sleep infinity" ]
