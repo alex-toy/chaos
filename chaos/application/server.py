@@ -2,7 +2,8 @@ import datetime
 from flask import Flask, jsonify, request
 from flask import send_file, send_from_directory, safe_join, abort
 
-from chaos.infrastructure.config.config import config
+from chaos.infrastructure.config.config import config 
+import lead_scoring_marieme_alessio.config.config as cf
 
 import  pickle
 import os
@@ -14,6 +15,15 @@ app = Flask(__name__)
 PORT = config["api"]["port"]
 HOST = config["api"]["host"]
 
+def __remove_accents__(df) :
+        new_df = df.copy()
+        for col in cf.CAT_FEAT :
+            new_df[col] = new_df[col].str.lower(
+            ).str.replace('[éèê]', 'e', regex=True
+            ).str.replace('[ô]', 'o', regex=True
+            ).str.replace('[û]', 'u', regex=True
+            ).str.replace('[à]', 'a', regex=True)
+        return new_df
 
 
 def model_prediction(data_file_path, model_file_path, save_file) :
@@ -51,15 +61,19 @@ def pred():
         answer = DEFAULT_RESPONSE
 
     df = pd.DataFrame(data=answer, index=[0])
+    df = __remove_accents__(df)
 
-    model_file_path = os.path.join(os.path.os.getcwd(), 'chaos/domain/model_lead.pkl')
+    model_file_path = os.path.join(os.path.os.getcwd(), 'chaos/domain/model_lead_scoring.pkl')
 
     with open(model_file_path, 'rb') as pickle_file:
         model = pickle.load(pickle_file)
 
-    answer['prediction'] = 1
-    
-    return answer
+    predict_prob = model.predict_proba(df)[0,1]
+    predict= model.predict(df)[0]
+    #response = {"prediction":predict} #, "predict_proba":predict_prob} 
+    answer['prediction'] = int(predict)
+    answer['predict_proba'] = float(predict_prob)
+    return  answer #{"prediction":int(predict)} #jsonify(response)
 
 
 @app.route("/predold", methods=["POST"])
