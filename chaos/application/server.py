@@ -51,7 +51,11 @@ def pred():
         answer = DEFAULT_RESPONSE
 
     df = pd.DataFrame(data=answer, index=[0])
-    print(df)
+
+    model_file_path = os.path.join(os.path.os.getcwd(), 'chaos/domain/model_lead.pkl')
+
+    with open(model_file_path, 'rb') as pickle_file:
+        model = pickle.load(pickle_file)
 
     answer['prediction'] = 1
     
