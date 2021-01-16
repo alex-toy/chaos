@@ -39,7 +39,6 @@ class CleanDataTransformer:
             df = pd.read_parquet(self.path)
         else:
             raise FileExistsError('Extension must be parquet or csv.')
-
         return self._clean_data(df)
 
 
