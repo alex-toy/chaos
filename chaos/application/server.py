@@ -43,6 +43,23 @@ def model_prediction(data_file_path, model_file_path, save_file) :
 
 @app.route("/pred", methods=["POST"])
 def pred():
+    keys = ["QUALITE_LEAD", "TAGS", "DERNIERE_ACTIVITE", "DUREE_SUR_SITEWEB", "NB_VISITES"]
+    try:
+        answer = {key : request.get_json()[key] for key in keys}
+    except (ValueError, TypeError, KeyError):
+        DEFAULT_RESPONSE = 0
+        answer = DEFAULT_RESPONSE
+
+    df = pd.DataFrame(data=answer, index=[0])
+    print(df)
+
+    answer['prediction'] = 1
+    
+    return answer
+
+
+@app.route("/predold", methods=["POST"])
+def predold():
     try:
         QUALITE_LEAD = request.get_json()["QUALITE_LEAD"]
         TAGS = request.get_json()["TAGS"]
