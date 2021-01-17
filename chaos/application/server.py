@@ -76,6 +76,24 @@ def pred():
     return  answer #{"prediction":int(predict)} #jsonify(response)
 
 
+@app.route("/preds", methods=["POST"])
+def preds():
+    model_file_path = os.path.join(os.path.os.getcwd(), 'chaos/domain/model_lead_scoring.pkl')
+
+    with open(model_file_path, 'rb') as pickle_file:
+        model = pickle.load(pickle_file)
+
+    upper_keys = list(request.get_json().keys())
+    keys = ["QUALITE_LEAD", "TAGS", "DERNIERE_ACTIVITE", "DUREE_SUR_SITEWEB", "NB_VISITES"]
+
+    upper_answer = {upper_key : {
+        **{key : request.get_json()[upper_key][key] for key in keys},
+        **{"prediction" : float(model.predict_proba(__remove_accents__(pd.DataFrame(data={key : request.get_json()[upper_key][key] for key in keys}, index=[0])))[0,1])}
+    } for upper_key in upper_keys}
+
+    return  upper_answer
+
+
 @app.route("/predold", methods=["POST"])
 def predold():
     try:
