@@ -4,6 +4,7 @@ from flask import send_file, send_from_directory, safe_join, abort
 
 from chaos.infrastructure.config.config import config 
 import lead_scoring_marieme_alessio.config.config as cf
+from lead_scoring_marieme_alessio.infrastructure.clean_data_transformer import CleanDataTransformer
 
 import  pickle
 import os
@@ -15,21 +16,12 @@ app = Flask(__name__)
 PORT = config["api"]["port"]
 HOST = config["api"]["host"]
 
-def __remove_accents__(df) :
-        new_df = df.copy()
-        for col in cf.CAT_FEAT :
-            new_df[col] = new_df[col].str.lower(
-            ).str.replace('[éèê]', 'e', regex=True
-            ).str.replace('[ô]', 'o', regex=True
-            ).str.replace('[û]', 'u', regex=True
-            ).str.replace('[à]', 'a', regex=True)
-        return new_df
-
 
 
 @app.route("/pred", methods=["POST"])
 def pred():
-    keys = ["QUALITE_LEAD", "TAGS", "DERNIERE_ACTIVITE", "DUREE_SUR_SITEWEB", "NB_VISITES"]
+    keys = cf.NEW_COL_NAMES_PRED[1:]
+
     try:
         answer = {key : request.get_json()[key] for key in keys}
     except (ValueError, TypeError, KeyError):
@@ -37,13 +29,15 @@ def pred():
         answer = DEFAULT_RESPONSE
 
     df = pd.DataFrame(data=answer, index=[0])
-    df = __remove_accents__(df)
+    cdt = CleanDataTransformer(is_train=False, df=df)
+    df = cdt.load_cleaned_data()
 
     model_file_path = os.path.join(os.path.os.getcwd(), 'chaos/domain/model_lead_scoring.pkl')
 
     with open(model_file_path, 'rb') as pickle_file:
         model = pickle.load(pickle_file)
 
+    
     predict_prob = model.predict_proba(df)[0,1]
     predict= model.predict(df)[0]
     #response = {"prediction":predict} #, "predict_proba":predict_prob} 
@@ -54,62 +48,25 @@ def pred():
 
 @app.route("/preds", methods=["POST"])
 def preds():
+
     model_file_path = os.path.join(os.path.os.getcwd(), 'chaos/domain/model_lead_scoring.pkl')
 
     with open(model_file_path, 'rb') as pickle_file:
         model = pickle.load(pickle_file)
 
-    upper_keys = list(request.get_json().keys())
-    keys = ["QUALITE_LEAD", "TAGS", "DERNIERE_ACTIVITE", "DUREE_SUR_SITEWEB", "NB_VISITES"]
+    ids = list(request.get_json().keys())
+    keys = cf.NEW_COL_NAMES_PRED[1:]
 
-    upper_answer = {upper_key : {
-        **{key : request.get_json()[upper_key][key] for key in keys},
-        **{"prediction" : float(model.predict_proba(__remove_accents__(pd.DataFrame(data={key : request.get_json()[upper_key][key] for key in keys}, index=[0])))[0,1])}
-    } for upper_key in upper_keys}
+    answer = {id_ : {
+        **request.get_json()[id_],
+        **{"predict_proba" : 
+            model.predict_proba(
+                CleanDataTransformer(is_train=False, df=pd.DataFrame(data=request.get_json()[id_], index=[0])
+            ).load_cleaned_data())[0,1]
+        }
+    } for id_ in ids}
 
-    return  upper_answer
-
-
-@app.route("/predold", methods=["POST"])
-def predold():
-    try:
-        QUALITE_LEAD = request.get_json()["QUALITE_LEAD"]
-        TAGS = request.get_json()["TAGS"]
-        DERNIERE_ACTIVITE = request.get_json()["DERNIERE_ACTIVITE"]
-        DUREE_SUR_SITEWEB = request.get_json()["DUREE_SUR_SITEWEB"]
-        NB_VISITES = request.get_json()["NB_VISITES"]
-    except (ValueError, TypeError, KeyError):
-        DEFAULT_RESPONSE = 0
-        answer = DEFAULT_RESPONSE
-
-    response = [{
-            "QUALITE_LEAD": QUALITE_LEAD,
-            "TAGS": TAGS,
-            "DERNIERE_ACTIVITE": DERNIERE_ACTIVITE,
-            "DUREE_SUR_SITEWEB": DUREE_SUR_SITEWEB,
-            "NB_VISITES": NB_VISITES,
-    }]
-
-    field_names = ['QUALITE_LEAD', 'TAGS', 'DERNIERE_ACTIVITE', 'DUREE_SUR_SITEWEB', 'NB_VISITES'] 
-  
-    with open('data.csv', 'w') as csvfile: 
-        writer = csv.DictWriter(csvfile, fieldnames = field_names) 
-        writer.writeheader() 
-        writer.writerows(response) 
-
-    model_file_path = os.path.join(os.path.os.getcwd(), 'chaos/domain/model_lead.pkl')
-
-    #with open(model_file_path, 'rb') as pickle_file:
-        #model = pickle.load(pickle_file)
-
-    #cd = CleanDataTransformer(path=data_file_path)
-    #data = cd.load_cleaned_data()
-
-    #response = model.predict_proba(data)[:,1]
-
-    response[0]['prediction'] = 1
-    
-    return response[0]
+    return  answer
 
 
 
@@ -129,19 +86,6 @@ def training():
     except FileNotFoundError:
         abort(404)
 
-
-
-
-@app.route("/example", methods=["GET"])
-def example():
-    try:
-        initial_number = request.get_json()["question"]
-        answer = float(initial_number)*2
-    except (ValueError, TypeError, KeyError):
-        DEFAULT_RESPONSE = 0
-        answer = DEFAULT_RESPONSE
-    response = {"answer": answer}
-    return jsonify(response)
 
 
 
