@@ -1,15 +1,10 @@
 import os
 import chaos
-from chaos.application.server import pred
 from chaos.test.unit.payload import unique_lead, multiple_lead
-import requests
-import json
-import requests_mock
 from pathlib import Path
 from flask import Flask, jsonify, request
 import pandas as pd
 
-from chaos.infrastructure.config.config import config 
 import lead_scoring_marieme_alessio.config.config as cf
 from lead_scoring_marieme_alessio.infrastructure.clean_data_transformer import CleanDataTransformer
 
