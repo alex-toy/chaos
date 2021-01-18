@@ -113,3 +113,4 @@ venv.bak/
 *~
 chaos/infrastructure/config/config_template.yml
 chaos/infrastructure/config/config.yml
+chaos/test/functional
