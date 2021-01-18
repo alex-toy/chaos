@@ -20,7 +20,7 @@ import csv
 
 
 def test_model_file_exists():
-    model = os.path.join(chaos.__path__[0], "domain/model.pkl")
+    model = os.path.join(chaos.__path__[0], "domain/model_lead_scoring.pkl")
     assert os.path.isfile(model)
 
 
@@ -33,7 +33,7 @@ def test_model_predicts_correctly() :
     cdt = CleanDataTransformer(is_train=False, df=df)
     df = cdt.load_cleaned_data()
 
-    model_file_path = os.path.join(chaos.__path__[0], "domain/model.pkl")
+    model_file_path = os.path.join(chaos.__path__[0], "domain/model_lead_scoring.pkl")
 
     with open(model_file_path, 'rb') as pickle_file:
         model = pickle.load(pickle_file)
