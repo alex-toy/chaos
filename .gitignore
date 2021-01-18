@@ -112,3 +112,4 @@ venv.bak/
 #emacs temp files
 *~
 chaos/infrastructure/config/config_template.yml
+chaos/infrastructure/config/config.yml
