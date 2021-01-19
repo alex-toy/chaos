@@ -31,9 +31,9 @@ spec:
         - containerPort: 5000
         volumeMounts:
         - name: foo
-          mountPath: "/etc/foo"
+          mountPath: "/secret"
           readOnly: true
       volumes:
-      - name: foo
+      - name: secret
         secret:
           secretName: chaos-secrets-4
