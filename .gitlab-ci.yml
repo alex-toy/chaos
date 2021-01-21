@@ -9,15 +9,15 @@ stages:
   - deploy
 
 before_script:
-  - ENVIRONMENT="$CI_COMMIT_BRANCH"
-  - TAG="$CI_COMMIT_SHA"
-  - PROJECT_NAME="$CI_PROJECT_NAME"
-  - echo $CI_COMMIT_BRANCH $CI_COMMIT_SHA $CI_PROJECT_NAME
+  - ENVIRONMENT=$CI_COMMIT_BRANCH
+  - TAG=$CI_COMMIT_SHA
+  - PROJECT_NAME=$CI_PROJECT_NAME
+  - echo ENVIRONMENT TAG PROJECT_NAME 
 
 build-docker-image:
   stage: build
   variables:
-    IMAGE_NAME: eu.gcr.io/yotta-square-ml3/{{$PROJECT_NAME}}:{{$ENVIRONMENT}}-{{$TAG}}
+    IMAGE_NAME: eu.gcr.io/yotta-square-ml3/{{PROJECT_NAME}}:{{ENVIRONMENT}}-{{TAG}}
   script:
   - echo $IMAGE_NAME
   - echo "$GITLAB_IAM_PRIVATE_KEY" > key.json
