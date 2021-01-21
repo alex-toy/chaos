@@ -9,16 +9,16 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: lead-scoring
+      app: lead-scoring-app
   
   template:
     metadata:
       labels:
-        app: lead-scoring
+        app: lead-scoring-app
     
     spec:
       containers:
-      - name: lead_scoring_container
+      - name: lead-scoring-container
         image: eu.gcr.io/yotta-square-ml3/PROJECT_NAME:ENVIRONMENT-TAG
         ports:
         - containerPort: 5000
