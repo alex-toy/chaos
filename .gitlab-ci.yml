@@ -17,7 +17,7 @@ before_script:
 build-docker-image:
   stage: build
   variables:
-    IMAGE_NAME: eu.gcr.io/yotta-square-ml3/{{PROJECT_NAME}}:{{ENVIRONMENT}}-{{TAG}}
+    IMAGE_NAME: eu.gcr.io/yotta-square-ml3/PROJECT_NAME:ENVIRONMENT-TAG
   script:
   - echo "$GITLAB_IAM_PRIVATE_KEY" > key.json
   - docker build . -t $IMAGE_NAME
@@ -44,7 +44,7 @@ deploy-api:
     - gcloud config set project yotta-square-ml3 
     - gcloud config set compute/zone europe-west1-b 
     - gcloud container clusters get-credentials chaos-cluster 
-    - cat deployment/deployment_api_template.yml | sed "s/{{ENVIRONMENT}}/$ENVIRONMENT" | sed "s/{{TAG}}/$CI_COMMIT_SHA" | kubectl apply -f -
+    - cat deployment/deployment_api_template.yml | sed "s/ENVIRONMENT/$ENVIRONMENT" | sed "s/TAG/$CI_COMMIT_SHA" | kubectl apply -f -
     - kubectl apply -f deployment/load-balancer.yml
   only:
     - develop
