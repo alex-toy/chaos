@@ -31,7 +31,7 @@ unit-test:
   script: 
     - pip install -r requirements.txt
     - pip install -e .
-    - pytest chaos/test/unit
+    - pytest lead_scoring/test/unit
   only:
     - develop
     - staging
