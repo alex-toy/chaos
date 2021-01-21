@@ -46,6 +46,7 @@ deploy-api:
     - cat deployment/deployment_api_template.yml | sed "s/{{ENVIRONMENT}}/$ENVIRONMENT" | sed "s/{{TAG}}/$CI_COMMIT_SHA" | kubectl apply -f -
     - kubectl apply -f deployment/load-balancer.yml
   only:
+    - develop
     - staging
     - master
 

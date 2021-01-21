@@ -20,7 +20,7 @@ HOST = config["api"]["host"]
 
 @app.route("/pred", methods=["POST"])
 def pred():
-    keys = cf.NEW_COL_NAMES_PRED[1:]
+    keys = cf.FEATURES
 
     try:
         answer = {key : request.get_json()[key] for key in keys}

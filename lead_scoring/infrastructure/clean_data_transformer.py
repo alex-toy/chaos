@@ -52,7 +52,8 @@ class CleanDataTransformer:
 
 
     def _clean_data(self, df): 
-        df = self.__change_columns_names__(df)
+        if self.is_train:
+            df = self.__change_columns_names__(df)
         df = self.__select_columns__(df)
         df = self.__remove_accents__(df)
         return df
@@ -61,9 +62,8 @@ class CleanDataTransformer:
 
     def __change_columns_names__(self, df):
         new_df = df.copy()
-        if self.is_train :
-            new_df = new_df[cf.COL_NAME_TRAIN]
-            new_df.columns = cf.NEW_COL_NAMES_TRAIN
+        new_df = new_df[cf.COL_NAME_TRAIN]
+        new_df.columns = cf.NEW_COL_NAMES_TRAIN
         return new_df
 
 

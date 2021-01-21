@@ -5,13 +5,14 @@ metadata:
   name: deployment-{{PROJECT_NAME}}-{{ENVIRONMENT}}
   labels:
     app: lead_scoring
-    environment: 
+    environment: {{ENVIRONMENT}}
 spec:
   replicas: 1
   
   selector:
     matchLabels:
       app: lead_scoring
+      environment: {{ENVIRONMENT}}
   
   template:
     metadata:

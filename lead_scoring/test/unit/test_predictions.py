@@ -1,5 +1,4 @@
 import os
-import chaos
 from lead_scoring.test.unit.payload import unique_lead, multiple_lead
 from pathlib import Path
 from flask import Flask, jsonify, request
@@ -15,20 +14,20 @@ import csv
 
 
 def test_model_file_exists():
-    model = os.path.join(lead_scoring.__path__[0], "models/model_lead_scoring.pkl")
+    model = os.path.join(os.path.os.getcwd(), 'models/model_lead_scoring.pkl')
     assert os.path.isfile(model)
 
 
 
 
 def test_model_predicts_correctly() :
-    keys = cf.NEW_COL_NAMES_PRED[1:]
+    keys = cf.FEATURES
 
     df = pd.DataFrame(data=unique_lead, index=[0])
     cdt = CleanDataTransformer(is_train=False, df=df)
     df = cdt.load_cleaned_data()
 
-    model_file_path = os.path.join(lead_scoring.__path__[0], "models/model_lead_scoring.pkl")
+    model_file_path = os.path.join(os.path.os.getcwd(), 'models/model_lead_scoring.pkl')
 
     with open(model_file_path, 'rb') as pickle_file:
         model = pickle.load(pickle_file)
