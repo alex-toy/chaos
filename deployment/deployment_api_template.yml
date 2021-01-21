@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 
 metadata:
-  name: deployment-$CI_PROJECT_NAME-$CI_COMMIT_BRANCH
+  name: deployment-PROJECT_NAME-ENVIRONMENT
   labels:
     app: lead-scoring
 spec:
@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
       - name: lead_scoring_container
-        image: eu.gcr.io/yotta-square-ml3/$CI_PROJECT_NAME:$CI_COMMIT_BRANCH-$CI_COMMIT_SHA
+        image: eu.gcr.io/yotta-square-ml3/PROJECT_NAME:ENVIRONMENT-TAG
         ports:
         - containerPort: 5000
         volumeMounts:
