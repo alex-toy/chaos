@@ -1,7 +1,7 @@
 import numpy as np 
 import pandas as pd
 from sklearn.base import BaseEstimator, TransformerMixin
-import lead_scoring_marieme_alessio.config.config as cf
+import lead_scoring.config.config as cf
 import logging
 
 logging.basicConfig(format=cf.LOGGING_FORMAT, filename=cf.FILE_LOG, level=logging.INFO)

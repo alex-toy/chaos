@@ -10,11 +10,11 @@ from sklearn.linear_model import LogisticRegression, SGDClassifier
 from sklearn.model_selection import train_test_split, GridSearchCV, KFold
 
 
-import lead_scoring_marieme_alessio.config.config as cf
-from lead_scoring_marieme_alessio.infrastructure.clean_data_transformer import CleanDataTransformer
-from lead_scoring_marieme_alessio.domain.categorical_transformer import CategoricalTransformer
-from lead_scoring_marieme_alessio.domain.numerical_transformer import NumericalTransformer
-from lead_scoring_marieme_alessio.domain.feature_selector import FeatureSelector
+import lead_scoring.config.config as cf
+from lead_scoring.infrastructure.clean_data_transformer import CleanDataTransformer
+from lead_scoring.domain.categorical_transformer import CategoricalTransformer
+from lead_scoring.domain.numerical_transformer import NumericalTransformer
+from lead_scoring.domain.feature_selector import FeatureSelector
 
 
 

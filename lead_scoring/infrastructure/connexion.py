@@ -2,7 +2,7 @@ from contextlib import contextmanager
 
 import psycopg2
 from sqlalchemy import create_engine
-from chaos.infrastructure.config.config import config
+from lead_scoring.infrastructure.config.config import config
 
 
 class Connexion(object):

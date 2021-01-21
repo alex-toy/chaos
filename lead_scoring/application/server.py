@@ -2,9 +2,9 @@ import datetime
 from flask import Flask, jsonify, request
 from flask import send_file, send_from_directory, safe_join, abort
 
-from chaos.infrastructure.config.config import config 
-import lead_scoring_marieme_alessio.config.config as cf
-from lead_scoring_marieme_alessio.infrastructure.clean_data_transformer import CleanDataTransformer
+from lead_scoring.infrastructure.config.config import config
+import lead_scoring.config.config as cf
+from lead_scoring.infrastructure.clean_data_transformer import CleanDataTransformer
 
 import  pickle
 import os
@@ -32,7 +32,7 @@ def pred():
     cdt = CleanDataTransformer(is_train=False, df=df)
     df = cdt.load_cleaned_data()
 
-    model_file_path = os.path.join(os.path.os.getcwd(), 'chaos/domain/model_lead_scoring.pkl')
+    model_file_path = os.path.join(os.path.os.getcwd(), 'models/model_lead_scoring.pkl')
 
     with open(model_file_path, 'rb') as pickle_file:
         model = pickle.load(pickle_file)
@@ -49,7 +49,7 @@ def pred():
 @app.route("/preds", methods=["POST"])
 def preds():
 
-    model_file_path = os.path.join(os.path.os.getcwd(), 'chaos/domain/model_lead_scoring.pkl')
+    model_file_path = os.path.join(os.path.os.getcwd(), 'models/model_lead_scoring.pkl')
 
     with open(model_file_path, 'rb') as pickle_file:
         model = pickle.load(pickle_file)
@@ -73,7 +73,7 @@ def preds():
 @app.route("/training", methods=["POST"])
 def training():
 
-    model_file_path = os.path.join(os.path.os.getcwd(), 'chaos/domain/model.pkl')
+    model_file_path = os.path.join(os.path.os.getcwd(), 'models/model.pkl')
     
     data_file_path = request.files['file']
     print(data_file_path)

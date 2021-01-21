@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: deployment-{{PROJECT_NAME}}-{{ENVIRONMENT}}
+  labels:
+    app: lead_scoring
+    environment: 
+spec:
+  replicas: 1
+  
+  selector:
+    matchLabels:
+      app: lead_scoring
+  
+  template:
+    metadata:
+      labels:
+        app: lead_scoring
+    
+    spec:
+      containers:
+      - name: lead_scoring_container
+        image: eu.gcr.io/yotta-square-ml3/{{PROJECT_NAME}}:{{ENVIRONMENT}}-{{TAG}}
+        ports:
+        - containerPort: 5000
+        volumeMounts:
+        - name: secrets
+          mountPath: "/secret"
+          readOnly: true
+      volumes:
+      - name: secrets
+        secret:
+          secretName: chaos-secrets-4

@@ -6,9 +6,9 @@ import pickle
 
 import numpy as np
 
-from lead_scoring_marieme_alessio.domain.rand_for_pipeline import rand_for_pipeline
-from lead_scoring_marieme_alessio.infrastructure.clean_data_transformer import CleanDataTransformer
-import lead_scoring_marieme_alessio.config.config as cf
+from lead_scoring.domain.rand_for_pipeline import rand_for_pipeline
+from lead_scoring.infrastructure.clean_data_transformer import CleanDataTransformer
+import lead_scoring.config.config as cf
 from sklearn.model_selection import train_test_split
 
 

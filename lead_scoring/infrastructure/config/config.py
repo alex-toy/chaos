@@ -9,7 +9,7 @@ this_dir = os.path.dirname(os.path.realpath(__file__))
 if ENVIRONMENT:
     config_file_path = ENVIRONMENT
 else:
-    config_file_path = os.path.join(this_dir, "config.yml")
+    config_file_path = os.path.join(this_dir, "config_api.yml")
 
 
 with open(config_file_path, 'r') as file_in:
