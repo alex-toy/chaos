@@ -10,8 +10,8 @@ stages:
 
 before_script:
   - ENVIRONMENT="$CI_COMMIT_BRANCH"
-  - TAG = "$CI_COMMIT_SHA"
-  - PROJECT_NAME = "$CI_PROJECT_NAME"
+  - TAG="$CI_COMMIT_SHA"
+  - PROJECT_NAME="$CI_PROJECT_NAME"
 
 build-docker-image:
   stage: build
