@@ -2,17 +2,17 @@ apiVersion: apps/v1
 kind: Deployment
 
 metadata:
-  name: deployment-{{PROJECT_NAME}}-{{ENVIRONMENT}}
+  name: deployment-$CI_PROJECT_NAME-$CI_COMMIT_BRANCH
   labels:
     app: lead_scoring
-    environment: {{ENVIRONMENT}}
+    environment: $CI_COMMIT_BRANCH
 spec:
   replicas: 1
   
   selector:
     matchLabels:
       app: lead_scoring
-      environment: {{ENVIRONMENT}}
+      environment: $CI_COMMIT_BRANCH
   
   template:
     metadata:
@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
       - name: lead_scoring_container
-        image: eu.gcr.io/yotta-square-ml3/{{PROJECT_NAME}}:{{ENVIRONMENT}}-{{TAG}}
+        image: eu.gcr.io/yotta-square-ml3/$CI_PROJECT_NAME:$CI_COMMIT_BRANCH-$CI_COMMIT_SHA
         ports:
         - containerPort: 5000
         volumeMounts:
