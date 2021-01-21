@@ -45,7 +45,7 @@ deploy-api:
     - gcloud config set project yotta-square-ml3 
     - gcloud config set compute/zone europe-west1-b 
     - gcloud container clusters get-credentials chaos-cluster 
-    - kubectl applay -f deployment/deployment_api_template.yml
+    - kubectl apply -f deployment/deployment_api_template.yml
     - kubectl apply -f deployment/load-balancer.yml
   only:
     - develop
