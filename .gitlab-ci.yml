@@ -8,11 +8,18 @@ stages:
   - test
   - deploy
 
+before_script:
+  - ENVIRONMENT=$CI_COMMIT_BRANCH
+  - TAG=$CI_COMMIT_SHA
+  - PROJECT_NAME=$CI_PROJECT_NAME
+  - echo ENVIRONMENT TAG PROJECT_NAME 
+
 build-docker-image:
   stage: build
   variables:
-    IMAGE_NAME: eu.gcr.io/yotta-square-ml3/$CI_PROJECT_NAME:$CI_COMMIT_BRANCH
+    IMAGE_NAME: eu.gcr.io/yotta-square-ml3/$CI_PROJECT_NAME:$CI_COMMIT_BRANCH-$CI_COMMIT_SHA
   script:
+  - echo $IMAGE_NAME
   - echo "$GITLAB_IAM_PRIVATE_KEY" > key.json
   - docker build . -t $IMAGE_NAME
   - docker login -u _json_key -p "$(cat key.json)" $IMAGE_NAME
@@ -29,7 +36,7 @@ unit-test:
     - develop
     - staging
 
-deploy to develop:
+deploy-api:
   stage: deploy
   image: google/cloud-sdk:257.0.0
   script:
@@ -38,9 +45,11 @@ deploy to develop:
     - gcloud config set project yotta-square-ml3 
     - gcloud config set compute/zone europe-west1-b 
     - gcloud container clusters get-credentials chaos-cluster 
-    - kubectl apply -f deployment/example_pod_develop.yml
-    - kubectl apply -f deployment/deployment-4.yml
-    - kubectl apply -f deployment/load-balancer-4.yml
+    - kubectl applay -f deployment/deployment_api_template.yml
+    - kubectl apply -f deployment/load-balancer.yml
   only:
+    - develop
     - staging
     - master
+
+

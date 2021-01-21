@@ -114,3 +114,4 @@ venv.bak/
 chaos/infrastructure/config/config_template.yml
 chaos/infrastructure/config/config.yml
 chaos/test/functional/test_server.py
+lead_scoring/infrastructure/config/config_postgre.yml
