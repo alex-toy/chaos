@@ -13,12 +13,6 @@ import pandas as pd
 import csv
 
 
-def test_model_file_exists():
-    model = os.path.join(os.path.os.getcwd(), 'models/model_lead_scoring.pkl')
-    assert os.path.isfile(model)
-
-
-
 
 def test_model_predicts_correctly() :
     keys = cf.FEATURES
