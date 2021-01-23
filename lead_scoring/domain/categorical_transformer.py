@@ -4,10 +4,6 @@ from sklearn.base import BaseEstimator, TransformerMixin
 import lead_scoring.config.config as cf
 import logging
 
-logging.basicConfig(format=cf.LOGGING_FORMAT, filename=cf.FILE_LOG, level=logging.INFO)
-d = {'clientip': '192.168.0.1', 'user': 'fbloggs'}
-logger = logging.getLogger('tcpserver')
-
 
 
 class CategoricalTransformer( BaseEstimator, TransformerMixin ):
@@ -30,8 +26,6 @@ class CategoricalTransformer( BaseEstimator, TransformerMixin ):
     
     
     def transform(self, X , y = None ):
-
-        logger.info('Run tranform : %s', 'initiated column processing', extra=d)
 
         new_X = X.copy()
 

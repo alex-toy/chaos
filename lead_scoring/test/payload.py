@@ -6,6 +6,15 @@ unique_lead = {
     "NB_VISITES": 0
 }
 
+unique_lead_clean = {
+    "QUALITE_LEAD": "pourrait etre pertinent",
+    "TAGS": "ne pas suivre de formation",
+    "DERNIERE_ACTIVITE": "email ouvert",
+    "DUREE_SUR_SITEWEB": 0,
+    "NB_VISITES": 0
+}
+
+
 multiple_lead = {
     "1" : {
         "QUALITE_LEAD": "Pourrait être pertinent",

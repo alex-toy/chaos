@@ -6,41 +6,12 @@ REPO_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '../../'))
 DATA_DIR = os.path.join(REPO_DIR, 'data')
 FILE_DATA = os.path.join(DATA_DIR, NAME_FILE)
 
-OUTPUTS_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '../../output'))
 OUTPUTS_MODELS_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '../../models'))
 
-PERF_FILE = os.path.abspath(os.path.join(os.path.dirname(__file__), '../../lead_scoring_marieme_alessio/domain/perf.txt'))
-
-
-_SAVED_FILENAME = '_processed_data.csv'
-JL = '.joblib'
-
-LOG_REG_SAVED_FILENAME = 'log_reg' + _SAVED_FILENAME
-LOG_REG_MODEL_FILE = 'log_reg' + JL
-
-KNN = 'knn'
-KNN_SAVED_FILENAME = KNN + _SAVED_FILENAME
-KNN_MODEL_FILE = KNN + JL
 
 RF = 'rf'
-RF_SAVED_FILENAME = RF + _SAVED_FILENAME
-RF_MODEL_FILE = RF + JL
-
-SVC = 'svc'
-SVC_SAVED_FILENAME = SVC + _SAVED_FILENAME
-SVC_MODEL_FILE = SVC + JL
-
-GB = 'gb'
-GB_SAVED_FILENAME = GB + _SAVED_FILENAME
-GB_MODEL_FILE = GB + JL
 
 
-INFO_LOG_FILE_NAME = 'lead_scoring_info_log.log'
-DATA_DIR = os.path.join(REPO_DIR, 'logs')
-FILE_LOG = os.path.join(DATA_DIR, INFO_LOG_FILE_NAME)
-LOGGING_FORMAT = '[%(asctime)s][%(levelname)s][%(module)s] - %(message)s'
-LOGGING_DATE_FORMAT = '%Y-%m-%d %H:%M:%S'
-#FORMAT = '%(asctime)-15s %(clientip)s %(user)-8s %(message)s'
 
 
 #new column names :
