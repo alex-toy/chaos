@@ -25,6 +25,6 @@ if __name__ == "__main__":
     y = data[cf.TARGET]
     X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=0)
     model = rand_for_pipeline(X_train,y_train)
-    #DESTINATION_FOLDER = os.path.join("lead_scoring_marieme_alessio".__path__[0], "domain")
-    FILENAME = os.path.join(cf.OUTPUTS_MODELS_DIR, "model_lead_scoring.pkl")
+    FILENAME = os.path.join(cf.OUTPUTS_MODELS_DIR, "model_lead_scoring_test.pkl")
     dump_model(model, FILENAME)
+    print(type(model))
