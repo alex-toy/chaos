@@ -44,3 +44,4 @@ deploy to develop:
   only:
     - staging
     - master
+    - test-front-end
