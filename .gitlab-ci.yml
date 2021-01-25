@@ -33,7 +33,6 @@ unit-test:
   only:
     - develop
     - staging
-    - add_tests
 
 deploy-api:
   stage: deploy
@@ -48,7 +47,6 @@ deploy-api:
     - cat deployment/load_balancer.yml | sed "s/ENVIRONMENT/$CI_COMMIT_BRANCH/" | sed "s/PROJECT_NAME/$CI_PROJECT_NAME/" | kubectl apply -f -
 
   only:
-    - develop
     - staging
     - master
 
