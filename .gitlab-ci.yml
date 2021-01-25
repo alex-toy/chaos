@@ -8,12 +8,6 @@ stages:
   - test
   - deploy
 
-before_script:
-  - ENVIRONMENT=$CI_COMMIT_BRANCH
-  - TAG=$CI_COMMIT_SHA
-  - PROJECT_NAME=$CI_PROJECT_NAME
-  - echo ENVIRONMENT TAG PROJECT_NAME 
-
 build-docker-image:
   stage: build
   variables:
@@ -24,6 +18,10 @@ build-docker-image:
   - docker build . -t $IMAGE_NAME
   - docker login -u _json_key -p "$(cat key.json)" $IMAGE_NAME
   - docker push $IMAGE_NAME
+  only:
+    - develop
+    - staging
+    - master
 
 unit-test:
   image: python:3.8.5
@@ -35,6 +33,7 @@ unit-test:
   only:
     - develop
     - staging
+    - add_tests
 
 deploy-api:
   stage: deploy

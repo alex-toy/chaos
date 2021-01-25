@@ -2,9 +2,6 @@ from sklearn.base import BaseEstimator, TransformerMixin
 import lead_scoring.config.config as cf
 import logging
 
-logging.basicConfig(format=cf.LOGGING_FORMAT, filename=cf.FILE_LOG, level=logging.INFO)
-d = {'clientip': '192.168.0.1', 'user': 'fbloggs'}
-logger = logging.getLogger('tcpserver')
 
 class NumericalTransformer(BaseEstimator, TransformerMixin):
     
@@ -16,7 +13,6 @@ class NumericalTransformer(BaseEstimator, TransformerMixin):
 
     #Custom transform that replace ouliers by the maximum value 
     def transform(self, X , y = None ):
-        logger.info('Run tranform : %s', 'remove outlier for numerical feature', extra=d)
         
         new_X = X.copy()
 

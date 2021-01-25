@@ -55,7 +55,6 @@ def preds():
         model = pickle.load(pickle_file)
 
     ids = list(request.get_json().keys())
-    keys = cf.NEW_COL_NAMES_PRED[1:]
 
     answer = {id_ : {
         **request.get_json()[id_],
@@ -78,7 +77,7 @@ def training():
     data_file_path = request.files['file']
     print(data_file_path)
 
-    model_prediction(data_file_path, model_file_path, os.path.os.getcwd())
+    #model_prediction(data_file_path, model_file_path, os.path.os.getcwd())
 
     data_prediction_file_path = os.path.os.getcwd()
     try:
