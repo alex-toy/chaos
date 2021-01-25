@@ -112,3 +112,8 @@ venv.bak/
 #emacs temp files
 *~
 chaos/infrastructure/config/config_template.yml
+chaos/infrastructure/config/config.yml
+chaos/test/functional/test_server.py
+lead_scoring/infrastructure/config/config_postgre.yml
+lead_scoring/infrastructure/config/yotta-square-ml3-b58a21bd2576.json
+lead_scoring/infrastructure/config/yotta-square-ml3-b58a21bd2576.json:Zone.Identifier
