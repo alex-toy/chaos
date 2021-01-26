@@ -117,3 +117,8 @@ chaos/test/functional/test_server.py
 lead_scoring/infrastructure/config/config_postgre.yml
 lead_scoring/infrastructure/config/yotta-square-ml3-b58a21bd2576.json
 lead_scoring/infrastructure/config/yotta-square-ml3-b58a21bd2576.json:Zone.Identifier
+data/predict_data_with_target.csv
+data/predict_data.csv
+data/train_data.csv
+lead_scoring/infrastructure/config/config_pg.yml
+lead_scoring/infrastructure/split_data.py

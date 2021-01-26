@@ -2,9 +2,13 @@ import datetime
 from flask import Flask, jsonify, request
 from flask import send_file, send_from_directory, safe_join, abort
 
-from lead_scoring.infrastructure.config.config import config
+from lead_scoring.infrastructure.config.config import config_api
 import lead_scoring.config.config as cf
 from lead_scoring.infrastructure.clean_data_transformer import CleanDataTransformer
+from lead_scoring.infrastructure.connexion import Connexion
+
+
+
 
 import  pickle
 import os
@@ -13,8 +17,8 @@ import csv
 
 
 app = Flask(__name__)
-PORT = config["api"]["port"]
-HOST = config["api"]["host"]
+PORT = config_api["api"]["port"]
+HOST = config_api["api"]["host"]
 
 
 
@@ -85,6 +89,15 @@ def training():
     except FileNotFoundError:
         abort(404)
 
+
+
+import pandas as pd
+engine = Connection().connect()
+
+@app.route("/get_data", methods=["GET"])
+def get_data_from_gcp(id: int = 0):
+    df = pd.read_sql("""SELECT * FROM lead_scoring_table WHERE "NIVEAU_LEAD" = "moyen";""", engine)
+    return df.to_dict()
 
 
 
