@@ -92,7 +92,7 @@ def training():
 
 
 import pandas as pd
-engine = Connection().connect()
+engine = Connexion().connect()
 
 @app.route("/get_data", methods=["GET"])
 def get_data_from_gcp(id: int = 0):

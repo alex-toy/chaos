@@ -7,7 +7,6 @@ stages:
   - build
   - test
   - deploy
-  - config-postgre
 
 build-docker-image:
   stage: build
@@ -50,6 +49,5 @@ deploy-api:
   only:
     - staging
     - master
-    - config-postgre
 
 
