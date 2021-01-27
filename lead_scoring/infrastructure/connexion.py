@@ -2,7 +2,7 @@ from contextlib import contextmanager
 
 import psycopg2
 from sqlalchemy import create_engine
-from lead_scoring.infrastructure.config.config import config_pg
+from lead_scoring.infrastructure.config.config import config
 
 
 class Connexion(object):
@@ -11,7 +11,7 @@ class Connexion(object):
 	    config_file : dict
 		    The YAML file describing the connexion configuration to postgresql
         """
-        param = config_pg["postgresql"]
+        param = config["postgresql"]
         self.username = param["username"]
         self.password = param["password"]
         self.hostname = param["hostname"]

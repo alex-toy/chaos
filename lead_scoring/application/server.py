@@ -2,11 +2,11 @@ import datetime
 from flask import Flask, jsonify, request
 from flask import send_file, send_from_directory, safe_join, abort
 
-from lead_scoring.infrastructure.config.config import config_api
+from lead_scoring.infrastructure.config.config import config
 import lead_scoring.config.config as cf
 from lead_scoring.infrastructure.clean_data_transformer import CleanDataTransformer
 from lead_scoring.infrastructure.connexion import Connexion
-
+import lead_scoring.infrastructure.database as db
 
 
 
@@ -17,8 +17,8 @@ import csv
 
 
 app = Flask(__name__)
-PORT = config_api["api"]["port"]
-HOST = config_api["api"]["host"]
+PORT = config["api"]["port"]
+HOST = config["api"]["host"]
 
 
 
@@ -44,10 +44,9 @@ def pred():
     
     predict_prob = model.predict_proba(df)[0,1]
     predict= model.predict(df)[0]
-    #response = {"prediction":predict} #, "predict_proba":predict_prob} 
     answer['prediction'] = int(predict)
     answer['predict_proba'] = float(predict_prob)
-    return  answer #{"prediction":int(predict)} #jsonify(response)
+    return  answer 
 
 
 @app.route("/preds", methods=["POST"])
@@ -90,18 +89,38 @@ def training():
         abort(404)
 
 
+@app.route("/get_leads_with_limit", methods=["GET"])
+def get_leads_with_limit():
+    key = "limit"
+    try:
+        answer = {key : request.get_json()[key]}
+    except (ValueError, TypeError, KeyError):
+        DEFAULT_RESPONSE = 0
+        answer = DEFAULT_RESPONSE
+    if answer == 0:
+        prediction = 0
+        return prediction
+    else:    
+        prediction = db.get_leads_with_limit(answer[key])
+        return  prediction
 
-import pandas as pd
-engine = Connexion().connect()
+@app.route("/get_leads_with_ids", methods=["GET"])
+def get_leads_with_ids():
+    key = "ids"
+    try:
+        answer = {key : request.get_json()[key]}
+    except (ValueError, TypeError, KeyError):
+        DEFAULT_RESPONSE = 0
+        answer = DEFAULT_RESPONSE
+    if answer == 0:
+        prediction = 0
+        return prediction
+    else:    
+        prediction = db.get_leads_with_ids(tuple(answer[key]))
+        return  prediction
 
-@app.route("/get_data", methods=["GET"])
-def get_data_from_gcp(id: int = 0):
-    df = pd.read_sql("""SELECT * FROM lead_scoring_table WHERE "NIVEAU_LEAD" = "moyen";""", engine)
-    return df.to_dict()
 
-
-
-
+        
 
 if __name__ == "__main__":
     print("starting API at", datetime.datetime.now())

@@ -122,3 +122,4 @@ data/predict_data.csv
 data/train_data.csv
 lead_scoring/infrastructure/config/config_pg.yml
 lead_scoring/infrastructure/split_data.py
+data/data_clean.csv

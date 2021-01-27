@@ -27,8 +27,8 @@ spec:
           mountPath: "/secret/"
           readOnly: true
         env:
-          - name: YOTTA_ML3_CONFIGURATION_POSTGRE_PATH
-            value: "/secret/config_pg.yml"
+          - name: YOTTA_ML3_CONFIGURATION_PATH
+            value: "/secret/config.yml"
 
       - name: cloud-sql-proxy
         image: gcr.io/cloudsql-docker/gce-proxy:1.19.1
