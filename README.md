@@ -46,11 +46,20 @@ Goal : create a local virtual environment in the folder `./.venv/`.
     $ source activate.sh
     ```
 
-    You sould **allways** activate your environment when working on the project.
+    You should **always** activate your environment when working on the project.
 
-    If it fails with one of the following message :
+    It succeeds with the following message :
+
     ```
-    "ERROR: failed to create the .venv : do it yourself!"
+    ************************************************************************************
+    Successfuly activated the virtual environment; you are now using this python:
+    $(which python)
+    ************************************************************************************
+    ```
+
+    If it fails with the following message :
+    ```
+    "ERROR: failed to activate virtual environment .venv! ask for advice on #dev "
     ```
 
 ## 2. Local use of API
