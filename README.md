@@ -28,7 +28,7 @@ Goal : create a local virtual environment in the folder `./.venv/`.
     Python 3.8.5
 
     $ which python3.8
-    /Users/benjamin/anaconda3/bin/python3
+    /Users/bin/anaconda3/bin/python3
     /usr/bin/python3
     ```
 
@@ -87,7 +87,7 @@ It should return something like {"DERNIERE_ACTIVITE":"Email ouvert","DUREE_SUR_S
 Your code will go in the folder `lead_scoring/config`.
 
 You can change your settings (where data is stored, the names of features, the parameters of models...)
-in `chaos/config/`:
+in `lead_scoring/config/`:
     - `config.py` should contain the configuration and env. variables you can change
 
 
