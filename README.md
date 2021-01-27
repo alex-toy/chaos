@@ -91,7 +91,8 @@ in `lead_scoring/config/`:
     - `config.py` should contain the configuration and env. variables you can change
 
 
-## 5. Documentation for the API can be found there : https://web.postman.co/workspace/My-Workspace~bb9aa43a-ab99-4acc-89e3-6b1f5d15063d/request/14093288-ff12434f-8249-4de7-bfed-ba15ad0699a5
+## 5. Documentation for the API can be found there : 
+https://web.postman.co/workspace/My-Workspace~bb9aa43a-ab99-4acc-89e3-6b1f5d15063d/request/14093288-ff12434f-8249-4de7-bfed-ba15ad0699a5
 
 
 # Project Organization 
