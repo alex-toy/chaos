@@ -4,8 +4,7 @@ By Marieme Gueye & Alessio Rea
 
 ==============================
 
-You need to have Python 3.8 installed for this project 
-Simply use command from project root directory :
+You need to have Python 3.8 installed for this project
 
 # Getting started
 
@@ -75,8 +74,8 @@ It should return something like {"DERNIERE_ACTIVITE":"Email ouvert","DUREE_SUR_S
 
 - Make several predictions from csv files:
     * Enter <IP>/predict-csv in your web browser.
-    * Upload your csv files (order of files matter!)
-    * Click "Envoyer" button and see your predictions download in a csv file
+    * Upload your csv file
+    * Click "submit" and get your predictions download in a csv file with new column "CONVERTI"
 
 ## 3. Online use of API thanks to react frontend (TODO)
 
