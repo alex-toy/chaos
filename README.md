@@ -1,4 +1,4 @@
-# Yotta Project 3 - ML in prod - Chaos
+# Yotta Project 3 - Machine Learning Production pipeline
 
 By Marieme Gueye & Alessio Rea
 
