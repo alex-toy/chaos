@@ -104,6 +104,9 @@ in `lead_scoring/config/`:
 https://web.postman.co/workspace/My-Workspace~bb9aa43a-ab99-4acc-89e3-6b1f5d15063d/request/14093288-ff12434f-8249-4de7-bfed-ba15ad0699a5
 
 
+## 6. go to the frontend app there : 
+http://34.77.115.125
+
 # Project Organization 
 ----------------------
 
