@@ -72,6 +72,7 @@ class CleanDataTransformer:
         if self.is_train :
             return new_df[cf.COLS_TO_KEEP]
         else :
+            new_df.columns = cf.FEATURES
             return new_df[cf.FEATURES]
 
 

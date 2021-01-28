@@ -43,8 +43,8 @@ deploy-api:
     - gcloud config set project yotta-square-ml3 
     - gcloud config set compute/zone europe-west1-b 
     - gcloud container clusters get-credentials chaos-cluster 
-    - cat deployment/deployment_api_template.yml | sed "s/ENVIRONMENT/$CI_COMMIT_BRANCH/" | sed "s/PROJECT_NAME/$CI_PROJECT_NAME/" | sed "s/TAG/$CI_COMMIT_SHA/" | kubectl apply -f -
-    - cat deployment/load_balancer.yml | sed "s/ENVIRONMENT/$CI_COMMIT_BRANCH/" | sed "s/PROJECT_NAME/$CI_PROJECT_NAME/" | kubectl apply -f -
+    - cat deployment/deployment_api_template.yml | sed "s/ENVIRONMENT/$CI_COMMIT_BRANCH/" | sed "s/PROJECT_NAME/$CI_PROJECT_NAME/" | sed "s/TAG/$CI_COMMIT_SHA/" | sed "s/NB_REPLICAS/2/" | kubectl apply -f -
+    - cat deployment/load_balancer.yml | sed "s/ENVIRONMENT/$CI_COMMIT_BRANCH/" | sed "s/PROJECT_NAME/$CI_PROJECT_NAME/" | sed "s/NB_REPLICAS/1/" | kubectl apply -f -
 
   only:
     - staging
