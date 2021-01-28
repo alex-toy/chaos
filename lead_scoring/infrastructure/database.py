@@ -31,9 +31,6 @@ def get_leads_with_limit(limit:int=10):
     prediction = {}
     for i, id_lead in enumerate(id_leads):
         prediction["{num}".format( num = int(i))] = {'id_lead':int(id_lead), 'prediction':int(predict[i])}
-        print(i)
-
-    print(prediction)
     return prediction
 
 
@@ -77,5 +74,3 @@ def get_leads_with_ids (ids: tuple = None):
     return prediction
 
 
-if __name__=="__main__":
-    get_lead((628707,637163,591219))

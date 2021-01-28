@@ -4,7 +4,7 @@ By Marieme Gueye & Alessio Rea
 
 ==============================
 
-You need to have Python 3.8 installed for this project
+You need to have Python 3.8.5 installed for this project
 
 # Getting started
 

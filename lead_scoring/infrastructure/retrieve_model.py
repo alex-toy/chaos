@@ -25,8 +25,9 @@ def retrieve_model(bucket_name, source_blob_name):
     blob = bucket.blob(source_blob_name)
     pickle_in = blob.download_as_bytes()
     # Model as pickle
-    data_model_dict = pickle.loads(pickle_in)
-    model = data_model_dict['model']
-
+    model = pickle.loads(pickle_in)
     return model
 
+
+if __name__=="__main__":
+    model = retrieve_model("chaos-4", "model_lead_scoring.pkl")
