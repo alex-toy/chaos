@@ -31,7 +31,6 @@ unit-test:
     - pip install -e .
     - pytest lead_scoring/test/unit
   only:
-    - develop
     - staging
 
 deploy-api:
@@ -49,5 +48,6 @@ deploy-api:
   only:
     - staging
     - master
+    - develop
 
 
