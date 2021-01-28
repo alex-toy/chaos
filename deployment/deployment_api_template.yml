@@ -30,7 +30,7 @@ spec:
           - name: YOTTA_ML3_CONFIGURATION_PATH
             value: "/secret/config.yml"
           - name: GOOGLE_APPLICATION_CREDENTIALS
-            value :"/secret/yotta-square-ml3-b58a21bd2576.json"
+            value: "/secret/yotta-square-ml3-b58a21bd2576.json"
 
       - name: cloud-sql-proxy
         image: gcr.io/cloudsql-docker/gce-proxy:1.19.1
