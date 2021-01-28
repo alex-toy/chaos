@@ -9,7 +9,6 @@ spec:
  - port: 80
    protocol: TCP
    targetPort: 5000
-   nodePort: 31222
  selector:
    app: lead-scoring-app
  type: LoadBalancer
