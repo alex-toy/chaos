@@ -5,6 +5,10 @@ from flask import send_file, send_from_directory, safe_join, abort
 from lead_scoring.infrastructure.config.config import config
 import lead_scoring.config.config as cf
 from lead_scoring.infrastructure.clean_data_transformer import CleanDataTransformer
+from lead_scoring.infrastructure.connexion import Connexion
+import lead_scoring.infrastructure.database as db
+
+
 
 import  pickle
 import os
@@ -40,7 +44,6 @@ def pred():
     answer['prediction'] = int(predict)
     answer['predict_proba'] = float(predict_prob)
     return  answer 
-
 
 
 @app.route("/preds", methods=["POST"])
@@ -82,9 +85,38 @@ def training():
         abort(404)
 
 
+@app.route("/get_leads_with_limit", methods=["GET"])
+def get_leads_with_limit():
+    key = "limit"
+    try:
+        answer = {key : request.get_json()[key]}
+    except (ValueError, TypeError, KeyError):
+        DEFAULT_RESPONSE = 0
+        answer = DEFAULT_RESPONSE
+    if answer == 0:
+        prediction = 0
+        return prediction
+    else:    
+        prediction = db.get_leads_with_limit(answer[key])
+        return  prediction
+
+@app.route("/get_leads_with_ids", methods=["GET"])
+def get_leads_with_ids():
+    key = "ids"
+    try:
+        answer = {key : request.get_json()[key]}
+    except (ValueError, TypeError, KeyError):
+        DEFAULT_RESPONSE = 0
+        answer = DEFAULT_RESPONSE
+    if answer == 0:
+        prediction = 0
+        return prediction
+    else:    
+        prediction = db.get_leads_with_ids(tuple(answer[key]))
+        return  prediction
 
 
-
+        
 
 if __name__ == "__main__":
     print("starting API at", datetime.datetime.now())

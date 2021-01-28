@@ -5,7 +5,9 @@ FULL_PATH_DATA = os.path.os.getcwd()
 REPO_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '../../'))
 DATA_DIR = os.path.join(REPO_DIR, 'data')
 FILE_DATA = os.path.join(DATA_DIR, NAME_FILE)
-
+TRAIN_DATA_DIRE = os.path.join(DATA_DIR, 'train_data.csv')
+PREDICT_DATA_DIRE = os.path.join(DATA_DIR, 'predict_data.csv')
+PREDICT_DATA_DIRE_WITH_TARGET = os.path.join(DATA_DIR, 'predict_data_with_target.csv')
 OUTPUTS_MODELS_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '../../models'))
 
 
