@@ -29,18 +29,20 @@ spec:
         env:
           - name: YOTTA_ML3_CONFIGURATION_PATH
             value: "/secret/config.yml"
+          - name: GOOGLE_APPLICATION_CREDENTIALS
+            value :"/secret/yotta-square-ml3-b58a21bd2576.json"
 
       - name: cloud-sql-proxy
         image: gcr.io/cloudsql-docker/gce-proxy:1.19.1
         command:
           - "/cloud_sql_proxy"
           - "-instances=yotta-square-ml3:europe-west1:group-4=tcp:5432"
-          - "-credential_file=/secrets/yotta-square-ml3-b58a21bd2576.json"
+          - "-credential_file=/secret/yotta-square-ml3-b58a21bd2576.json"
         securityContext:
           runAsNonRoot: true
         volumeMounts:
         - name: volume-secrets-chaos-4
-          mountPath: /secrets/
+          mountPath: /secret
           readOnly: true
       volumes:
       - name: volume-secrets-chaos-4

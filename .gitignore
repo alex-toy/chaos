@@ -123,3 +123,5 @@ data/train_data.csv
 lead_scoring/infrastructure/config/config_pg.yml
 lead_scoring/infrastructure/split_data.py
 data/data_clean.csv
+lead_scoring/application/test_app.py
+data/data.csv
