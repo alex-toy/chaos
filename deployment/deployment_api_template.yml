@@ -5,7 +5,7 @@ metadata:
   labels:
     environment: ENVIRONMENT
 spec:
-  replicas: NB_REPLICAS
+  replicas: 1
   selector:
     matchLabels:
       app: lead-scoring-app
@@ -14,6 +14,7 @@ spec:
     metadata:
       labels:
         app: lead-scoring-app
+        environment: ENVIRONMENT
     spec:
       containers:
       - name: lead-scoring-app
