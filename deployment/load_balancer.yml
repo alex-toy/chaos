@@ -11,5 +11,5 @@ spec:
    targetPort: 5000
    nodePort: 30216
  selector:
-   app: lead-scoring-app-ENVIRONMENT
+   app: lead-scoring-app
  type: LoadBalancer
