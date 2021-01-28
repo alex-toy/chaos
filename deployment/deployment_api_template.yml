@@ -3,28 +3,27 @@ kind: Deployment
 metadata:
   name: deployment-PROJECT_NAME-ENVIRONMENT
   labels:
-    environment: ENVIRONMENT
+    app: lead-scoring-app
 spec:
   replicas: 1
   selector:
     matchLabels:
       app: lead-scoring-app
-      environment: ENVIRONMENT
+
   template:
     metadata:
       labels:
         app: lead-scoring-app
-        environment: ENVIRONMENT
     spec:
       containers:
-      - name: lead-scoring-app
+      - name: lead-scoring-container
         image: eu.gcr.io/yotta-square-ml3/PROJECT_NAME:ENVIRONMENT-TAG
         imagePullPolicy: Always
         ports:
         - containerPort: 5000
         volumeMounts:
         - name: secrets
-          mountPath: /secrets
+          mountPath: /secret
           readOnly: true
         env:
           - name: YOTTA_ML3_CONFIGURATION_PATH
@@ -37,12 +36,12 @@ spec:
         command:
           - "/cloud_sql_proxy"
           - "-instances=yotta-square-ml3:europe-west1:group-4=tcp:5432"
-          - "-credential_file=/secrets/yotta-square-ml3-b58a21bd2576.json"
+          - "-credential_file=/secret/yotta-square-ml3-b58a21bd2576.json"
         securityContext:
           runAsNonRoot: true
         volumeMounts:
         - name: secrets
-          mountPath: /secrets
+          mountPath: /secret
           readOnly: true
       volumes:
       - name: secrets
