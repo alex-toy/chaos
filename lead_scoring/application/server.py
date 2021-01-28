@@ -35,13 +35,10 @@ def pred():
     df = pd.DataFrame(data=answer, index=[0])
     cdt = CleanDataTransformer(is_train=False, df=df)
     df = cdt.load_cleaned_data()
-
-    model_file_path = os.path.join(os.path.os.getcwd(), 'models/model_lead_scoring.pkl')
-
-    with open(model_file_path, 'rb') as pickle_file:
-        model = pickle.load(pickle_file)
-
     
+    model = retrieve_model("chaos-4", "model_lead_scoring.pkl")
+    print(type(model))
+
     predict_prob = model.predict_proba(df)[0,1]
     predict= model.predict(df)[0]
     answer['prediction'] = int(predict)
@@ -52,12 +49,10 @@ def pred():
 @app.route("/preds", methods=["POST"])
 def preds():
 
-    model_file_path = os.path.join(os.path.os.getcwd(), 'models/model_lead_scoring.pkl')
-
-    with open(model_file_path, 'rb') as pickle_file:
-        model = pickle.load(pickle_file)
+    model = retrieve_model("chaos-4", "model_lead_scoring.pkl")
 
     ids = list(request.get_json().keys())
+    keys = cf.NEW_COL_NAMES_PRED[1:]
 
     answer = {id_ : {
         **request.get_json()[id_],
@@ -69,6 +64,7 @@ def preds():
     } for id_ in ids}
 
     return  answer
+
 
 
 
