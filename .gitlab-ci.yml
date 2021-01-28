@@ -31,8 +31,8 @@ unit-test:
     - pip install -e .
     - pytest lead_scoring/test/unit
   only:
-    - develop
     - staging
+    - develop
 
 deploy-api:
   stage: deploy
@@ -45,9 +45,11 @@ deploy-api:
     - gcloud container clusters get-credentials chaos-cluster 
     - cat deployment/deployment_api_template.yml | sed "s/ENVIRONMENT/$CI_COMMIT_BRANCH/" | sed "s/PROJECT_NAME/$CI_PROJECT_NAME/" | sed "s/TAG/$CI_COMMIT_SHA/" | kubectl apply -f -
     - cat deployment/load_balancer.yml | sed "s/ENVIRONMENT/$CI_COMMIT_BRANCH/" | sed "s/PROJECT_NAME/$CI_PROJECT_NAME/" | kubectl apply -f -
+    - cat deployment/server-cluster-ip.yml | sed "s/ENVIRONMENT/$CI_COMMIT_BRANCH/" | kubectl apply -f -
 
   only:
     - staging
     - master
+
 
 
